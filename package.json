@@ -4,12 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.0",
+    "dotenv": "^4.0.0",
     "express": "^4.15.4",
+    "lodash": "^4.17.4",
+    "morgan": "^1.8.2",
+    "request": "^2.81.0",
     "wifi-control": "^2.0.1"
   },
   "scripts": {
-    "start": "node index",
-    "nodemon": "nodemon index"
+    "server": "nodemon --require dotenv/config server/index",
+    "client": "nodemon --require dotenv/config client/index"
   },
   "engines": {
     "node": "7.2.1"
