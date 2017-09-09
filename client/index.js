@@ -1,6 +1,7 @@
 const WiFiControl = require( 'wifi-control');
 const request = require('request');
-const serverPort = process.env.SERVER_PORT;
+const serverUri = '10.251.82.83';
+const serverPort = 3000;
 
 WiFiControl.init({
   debug: true,
@@ -46,7 +47,7 @@ function prepareDataForServer(networks) {
 }
 
 function sendDataToServer(data) {
-  request.post(`http://localhost:${serverPort}/api/data`, {
+  request.post(`http://${serverUri}:${serverPort}/api/data`, {
     form: {
       data,
     },

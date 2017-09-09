@@ -13,8 +13,8 @@
     "wifi-control": "^2.0.1"
   },
   "scripts": {
-    "server": "nodemon --require dotenv/config server/index",
-    "client": "nodemon --require dotenv/config client/index"
+    "server": "nodemon server/index",
+    "client": "nodemon client/index"
   },
   "engines": {
     "node": "7.2.1"
