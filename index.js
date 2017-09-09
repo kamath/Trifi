@@ -14,10 +14,6 @@ const networkCredentials = [
     ssid: 'Saul',
     password: 'wnip198!'
   },
-  {
-    ssid: 'andywifi',
-    password: 'aaaaaaaa'
-  }
 ];
 
 WiFiControl.init({
@@ -28,8 +24,8 @@ WiFiControl.scanForWiFi((err, res) => {
   if (err) {
     console.log(err);
   }
-  // prettyPrintNetworks(res.networks);
-  setupConnection(res.networks);
+  setInterval(() => prettyPrintNetworks(res.networks), 1000);
+  // setupConnection(res.networks);
 })
 
 /**
