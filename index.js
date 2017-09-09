@@ -1,15 +1,31 @@
 const express = require('express');
 const WiFiControl = require('wifi-control');
 
+const networkCredentials = [
+  {
+    ssid: 'H Wildermuth',
+    password: 'password',
+  },
+  {
+    ssid: 'Nathan\'s iPhone',
+    password: 'rickross',
+  },
+  {
+    ssid: 'Saul',
+    password: 'wnip198!'
+  }
+];
+
 WiFiControl.init({
   debug: true,
 });
 
-WiFiControl.scanForWiFi((err, networks) => {
+WiFiControl.scanForWiFi((err, res) => {
   if (err) {
     console.log(err);
   }
-  setupConnection(networks);
+  prettyPrintNetworks(res.networks);
+  // setupConnection(networks);
 })
 
 /**
@@ -17,16 +33,6 @@ WiFiControl.scanForWiFi((err, networks) => {
  * @param networks the found wifi networks
  */
 function setupConnection(networks) {
-  const networkCredentials = [
-    {
-      ssid: 'H Wildermuth',
-      password: 'password',
-    },
-    {
-      ssid: 'Nathan\'s iPhone',
-      password: 'rickross',
-    },
-  ];
   rotateConnections(networkCredentials, 0)
 }
 
@@ -50,7 +56,24 @@ function rotateConnections(networkCredentials, next) {
         console.log(err);
       }
       console.log(response);
-      setTimeout(() => rotateConnections(networkCredentials, next + 1), 5000);
+      setTimeout(() => rotateConnections(networkCredentials, next + 1), 1000);
     });
   });
+}
+
+function prettyPrintNetworks(networks) {
+  const pretty =
+    networks
+      .filter(({ ssid }) => {
+        const ourSSIDs = networkCredentials.map(({ ssid }) => ssid);
+        return (ourSSIDs.indexOf(ssid) !== -1);
+      })
+      .map(({ ssid, signal_level }) => {
+        return {
+          ssid,
+          signal_level,
+          timestamp: (new Date()),
+        };
+      });
+  console.log(pretty);
 }
