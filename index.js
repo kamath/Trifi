@@ -1,5 +1,5 @@
 const express = require('express');
-const WiFiControl = require('wifi-control');
+const WiFiControl = require( 'wifi-control');
 
 const networkCredentials = [
   {
@@ -13,6 +13,10 @@ const networkCredentials = [
   {
     ssid: 'Saul',
     password: 'wnip198!'
+  },
+  {
+    ssid: 'andywifi',
+    password: 'aaaaaaaa'
   }
 ];
 
@@ -24,8 +28,8 @@ WiFiControl.scanForWiFi((err, res) => {
   if (err) {
     console.log(err);
   }
-  prettyPrintNetworks(res.networks);
-  // setupConnection(networks);
+  // prettyPrintNetworks(res.networks);
+  setupConnection(res.networks);
 })
 
 /**
@@ -61,6 +65,10 @@ function rotateConnections(networkCredentials, next) {
   });
 }
 
+/**
+ * Pretty prints the found networks
+ * @param networks an array of found networks
+ */
 function prettyPrintNetworks(networks) {
   const pretty =
     networks
