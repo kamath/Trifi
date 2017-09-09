@@ -1,0 +1,17 @@
+{
+  "name": "arslan",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.4",
+    "wifi-control": "^2.0.1"
+  },
+  "scripts": {
+    "start": "node index",
+    "nodemon": "nodemon index"
+  },
+  "engines": {
+    "node": "7.2.1"
+  }
+}
