@@ -78,6 +78,7 @@ function prepareDataForServer(networks) {
           signal_level,
           timestamp: (new Date()),
           location: beacon.location,
+          correction: beacon.correction,
         };
       });
   // console.log(`Found networks: ${foundWhitelistedNetworks}`);
