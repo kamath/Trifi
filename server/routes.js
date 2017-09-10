@@ -43,6 +43,10 @@ function routes(io) {
      */
     // normalized is [2.1,1.1][0,3]5[0,0]2[3,0]7
     const normalized = output.replace(/ /g, '');
+    console.log('Output:');
+    console.log(output);
+    console.log('Normalized:');
+    console.log(normalized);
     // Bracketed groups hold positions
     const bracketedGroups = normalized.match(/\[.*?\]/g);
     // Digits after brackets hold radii - substring to remove leading bracket
