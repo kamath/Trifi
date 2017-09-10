@@ -1,7 +1,7 @@
 const WiFiControl = require( 'wifi-control');
 const request = require('request');
 const _find = require('lodash/find');
-const serverUri = 'localhost';//'10.251.82.83';
+const serverUri = '10.251.68.88'//'localhost';//'10.251.82.83';
 const serverPort = 3000;
 const endpoint = `http://${serverUri}:${serverPort}`;
 
@@ -78,6 +78,7 @@ function prepareDataForServer(networks) {
           signal_level,
           timestamp: (new Date()),
           location: beacon.location,
+          correction: beacon.correction,
         };
       });
   // console.log(`Found networks: ${foundWhitelistedNetworks}`);

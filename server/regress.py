@@ -2,32 +2,52 @@ import sys
 import json
 import numpy as np
 from scipy.optimize import minimize
+import matplotlib.pyplot as plt
+from datetime import datetime
+
 
 def get_data_from_nodejs():
     lines = sys.stdin.readlines()
-    # Only 1 line of input
-    #print 'Look at me'
-    #print lines
     return json.loads(lines[0])
 
+def plot_radii(locs,dists,mx=5):
+    circle1 = plt.Circle((locs[0][0], locs[0][1]), dists[0], color='k', fill=False)
+    circle2 = plt.Circle((locs[1][0], locs[1][1]), dists[1], color='k', fill=False)
+    circle3 = plt.Circle((locs[2][0], locs[2][1]), dists[2], color='k', fill=False)
+    
+    fig, ax = plt.subplots() 
+    ax = plt.gca()
+    ax.cla()
+    ax.set_xlim(-1*mx, mx)
+    ax.set_ylim(-1*mx, mx)
+    ax.add_artist(circle1)
+    ax.add_artist(circle2)
+    ax.add_artist(circle3)
+    fig.savefig('frame_%s.png'%str(datetime.now()))
+    
+    
 def main():
     lines = get_data_from_nodejs()
-    
+    print lines
     locs,sigs = [],[]
     for a in lines:
+        #print(a['ssid'],a['signal_level'])
         locs.append((float(a['location'][0]),float(a['location'][1])))
-        sigs.append(float(a['signal_level']))
+        sigs.append(float(a['signal_level'])+float(a['correction']))
     
     #Free Space Path Loss formula for distance
     def dist(sig, freq=2412):
-        return 10**((27.55-(20*np.log10(freq)) - sig)/40.0)
+        return 10**((27.55-(20*np.log10(freq)) - sig)/20.0)
 
     
     # every timestamp put new values in dist() calls
     # in order of L1,L2,L3
     Ls = locs
     Ds = [dist(s) for s in sigs]
-
+    #print Ds
+    
+    plot_radii(Ls,Ds,mx=10)
+    
     def mse(x, locations, distances):
         """
         Mean standard error to minimize
