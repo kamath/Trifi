@@ -61,7 +61,6 @@ function routes(io) {
             .split(' ')
             // Remove all blank elements
             .filter(el => el !== '')
-            .join(',')
         );
       }
       // Remove spaces for all groups other than first
