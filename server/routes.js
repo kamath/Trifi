@@ -1,4 +1,5 @@
 const _get = require('lodash/get');
+const path = require('path');
 const { spawn } = require('child_process');
 
 function routes(io) {
@@ -48,7 +49,7 @@ function routes(io) {
         // JSON parse to turn it into a native array
         position: JSON.parse(bracketedGroups[i + 1]),
         radius: digitsAfterBrackets[i],
-      }
+      };
     }
     return {
       clientPosition,
