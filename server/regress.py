@@ -2,29 +2,12 @@ import sys
 import json
 import numpy as np
 from scipy.optimize import minimize
-import matplotlib.pyplot as plt
 from datetime import datetime
 
 
 def get_data_from_nodejs():
     lines = sys.stdin.readlines()
     return json.loads(lines[0])
-
-def plot_radii(locs,dists,mx=5):
-    circle1 = plt.Circle((locs[0][0], locs[0][1]), dists[0], color='k', fill=False)
-    circle2 = plt.Circle((locs[1][0], locs[1][1]), dists[1], color='k', fill=False)
-    circle3 = plt.Circle((locs[2][0], locs[2][1]), dists[2], color='k', fill=False)
-
-    fig, ax = plt.subplots()
-    ax = plt.gca()
-    ax.cla()
-    ax.set_xlim(-1*mx, mx)
-    ax.set_ylim(-1*mx, mx)
-    ax.add_artist(circle1)
-    ax.add_artist(circle2)
-    ax.add_artist(circle3)
-    fig.savefig('frame_%s.png'%str(datetime.now()))
-
 
 def main():
     lines = get_data_from_nodejs()
@@ -49,8 +32,6 @@ def main():
         dicto[name] = []
         dicto[name].append(Ls[i])
         dicto[name].append(Ds[i])
-
-    #plot_radii(Ls,Ds,mx=10)
 
     def mse(x, locations, distances):
         """
