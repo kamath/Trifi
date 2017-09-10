@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Tri-Fi: Triangulation of Location via Hotspot Strength</title>
+		<title>Tri-Fi: Trilateration of Location via Hotspot Strength</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -26,7 +26,7 @@
 						<div class="content">
 							<div class="inner">
 								<h1>Tri-Fi</h1>
-								<p>Triangulation of location via wifi hotspot signal strength analysis.</p>
+								<p>Trilateration of location via wifi hotspot signal strength analysis.</p>
 								<canvas id="canvas" height=400 width=400></canvas>
 							</div>
 						</div>
@@ -41,11 +41,12 @@
 		<!-- BG -->
 			<div id="bg"></div>
 
-			<!-- Scripts -->
+		<!-- Scripts -->
+			<script src="/socket.io/socket.io.js"></script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-
+			<script src="sockets.js"></script>
 	</body>
 </html>

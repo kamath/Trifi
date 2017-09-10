@@ -1,13 +1,15 @@
 # TriFi
-Triangulation of location via wifi hotspot signal strength analysis
+Trilateration of location via internet hotspot signal strength analysis
 
-## Client
-Client runs on a device which is attached to the person being tracked (i.e. Raspberry Pi). Signal strength data is sent every second to the server.
+## What?
 
-## Server
-Server runs on another device which runs the triangulation and signal analysis code to determine the location of the client.
+Our goal was to create a noninvasive location tracker through a confined space. Our solution provides store owners/managers with a tool to see where their consumers spend most of their time without invading the customer's privacy too much. Our goal is that the merchant incentivizes the consumer with a discounted purchase so that the store can collect data about where to optimally place products.
 
-## Viewer
-Viewer is a website available from any web browser which allows the user to see a realtime view of the location of the client relative to the client coordinate system.
+**THIS DOES NOT VIOLATE A CONSUMER'S INDIVIDUAL PRIVACY**
 
-The viewer code is run on the same machine as the server.
+Usage of the product is entirely up to the consumer, and the beauty of the product is that it stops tracking a user's location beyond the confines of a store.
+
+## How it works
+![demo.png](demo.png)
+
+Given a beacon at position (X<sub>a</sub>, Y<sub>a</sub>), a user's distance from the router can be calculated through a transformed form of the Free Space Path Loss (FSPL) formula. 
