@@ -1,7 +1,7 @@
 const WiFiControl = require( 'wifi-control');
 const request = require('request');
 const _find = require('lodash/find');
-const serverUri = '10.251.82.83';
+const serverUri = 'localhost';//'10.251.82.83';
 const serverPort = 3000;
 const endpoint = `http://${serverUri}:${serverPort}`;
 
@@ -14,16 +14,19 @@ const beacons = [
     ssid: 'Saul',
     location: [0, 2.7],
     data: [],
+    correction: 0,
   },
   {
     ssid: 'Nathan\'s iPhone',
     location: [0, 0],
     data: [],
+    correction: 1,
   },
   {
     ssid: 'H Wildermuth',
     location: [2.7, 0],
     data: [],
+    correction: 2.5,
   },
 ];
 
@@ -67,8 +70,8 @@ function prepareDataForServer(networks) {
       })
       .map(({ ssid, signal_level }) => {
         const beacon = _find(beacons, ['ssid', ssid]);
-        beacon.data.push(signal_level);
-        console.log(beacon.ssid + ': ' + beacon.data);
+        // beacon.data.push(signal_level);
+        // console.log(beacon.ssid + ': ' + beacon.data);
         foundWhitelistedNetworks.push(ssid);
         return {
           ssid,
