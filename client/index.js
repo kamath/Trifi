@@ -6,21 +6,24 @@ const serverPort = 3000;
 const endpoint = `http://${serverUri}:${serverPort}`;
 
 WiFiControl.init({
-  debug: true,
+  // debug: true,
 });
 
 const beacons = [
   {
-    name: 'Saul',
+    ssid: 'Saul',
+    location: [0, 2.7],
+    data: [],
+  },
+  {
+    ssid: 'Nathan\'s iPhone',
     location: [0, 0],
+    data: [],
   },
   {
-    name: 'Nathan\'s iPhone',
-    location: [0, 3],
-  },
-  {
-    name: 'H Wildermuth',
-    location: [3, 0],
+    ssid: 'H Wildermuth',
+    location: [2.7, 0],
+    data: [],
   },
 ];
 
@@ -30,14 +33,22 @@ searchForWifi();
  * Searches for Wifi
  */
 function searchForWifi() {
-  setInterval(() => {
-    WiFiControl.scanForWiFi((err, res) => {
+  WiFiControl.resetWiFi((err, res) => {
+    if (err) {
+      console.log(err);
+    }
+    WiFiControl.connectToAP({ ssid: 'PennApps' }, (err, res) => {
       if (err) {
         console.log(err);
       }
-      prepareDataForServer(res.networks);
-    })
-  }, 1000);
+      WiFiControl.scanForWiFi((err, res) => {
+        if (err) {
+          console.log(err);
+        }
+        prepareDataForServer(res.networks);
+      });
+    });
+  });
 }
 
 /**
@@ -45,25 +56,28 @@ function searchForWifi() {
  * @param networks an array of found networks
  */
 function prepareDataForServer(networks) {
-  const ssidWhitelist = beacons.map(({ name }) => name);
+  const ssidWhitelist = beacons.map(({ ssid }) => ssid);
   const foundWhitelistedNetworks = [];
   const pretty =
     networks
       .filter(({ ssid }) => {
         // Check whether SSID is in whitelist
-        // (i.e. name of one of the beacons)
+        // (i.e. ssid of one of the beacons)
         return (ssidWhitelist.indexOf(ssid) !== -1);
       })
       .map(({ ssid, signal_level }) => {
+        const beacon = _find(beacons, ['ssid', ssid]);
+        beacon.data.push(signal_level);
+        console.log(beacon.ssid + ': ' + beacon.data);
         foundWhitelistedNetworks.push(ssid);
         return {
           ssid,
           signal_level,
           timestamp: (new Date()),
-          location: _find(beacons, ['name', ssid]).location,
+          location: beacon.location,
         };
       });
-  console.log(`Found networks: ${foundWhitelistedNetworks}`);
+  // console.log(`Found networks: ${foundWhitelistedNetworks}`);
   sendDataToServer(pretty);
 }
 
@@ -79,6 +93,8 @@ function sendDataToServer(data) {
       }
       return console.error(err);
     }
-    return console.log('Response from server: ' + body);
+    // return console.log('Response from server: ' + body);
   });
+
+  setTimeout(searchForWifi, 1000);
 }
