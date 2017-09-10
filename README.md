@@ -15,3 +15,5 @@ Usage of the product is entirely up to the consumer, and the beauty of the produ
 Given a beacon at position (<i>X<sub>a</sub>, Y<sub>a</sub></i>), a user's distance from the router can be calculated through a transformed form of the Free Space Path Loss (FSPL) formula. Through communicating with the wi-fi emitted from the beacon, a computer can calculate the signal strength in dBm and the frequency in MHz. When plugged into the following equation, where f is the frequency and s is the signal strength, a distance *d* in meters is returned.
 
 ![math.png](distance.png)
+
+While this was a great start, the problem persisted as to finding the user's specific location. The equation returns a distance between the user and the beacon, which forms a circle around the beacon of radius *d*. In order to track the precise location, we used a technique known as *trilateration* (very similar to *triangularation* in GPS's).
