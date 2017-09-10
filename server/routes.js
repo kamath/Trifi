@@ -47,14 +47,18 @@ function routes(io) {
      * mock data:
      * [2.1, 1.1] [0, 3] 5 [0, 0] 2 [3, 0] 7
      */
-    // normalized is [2.1,1.1][0,3]5[0,0]2[3,0]7
     const normalized = output.replace(/ /g, '');
-    console.log('Output:');
-    console.log(output);
-    console.log('Normalized:');
-    console.log(normalized);
     // Bracketed groups hold positions
-    const bracketedGroups = normalized.match(/\[.*?\]/g);
+    // We don't use normalized so we can work with
+    // the space-delimited first bracket group
+    const bracketedGroups = output.match(/\[.*?\]/g).map((group, i) => {
+      // First group is special, need to renormalize to normal array format
+      if (i === 0) {
+        return `[${group.replace(/\[\]/g, '').split(' ').join(',')}]`;
+      }
+      // Remove spaces for all groups other than first
+      return group.replace(/ /g, '');
+    });
     // Digits after brackets hold radii - substring to remove leading bracket
     const digitsAfterBrackets = normalized.match(/\]\d/g).map((m) => m.substring(1));
     // JSON parse to create native array

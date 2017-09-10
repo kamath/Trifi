@@ -68,7 +68,7 @@ def main():
     stdout is:
     [xpos,ypos] (meters), "Saul": [locX, locY], radius, "H Wildermuth": loc, radius, "Nathan\'s iPhone": loc, radius
     mock data:
-    [2.1, 1.1] [0, 3] 5 [0, 0] 2 [3, 0] 7
+    [2.1 1.1] [0, 3] 5 [0, 0] 2 [3, 0] 7
 
     """
     print location, [dicto["Saul"][0][0],dicto["Saul"][0][1]], dicto["Saul"][1],[dicto["H Wildermuth"][0][0],dicto["H Wildermuth"][0][1]], dicto["H Wildermuth"][1],[dicto["Nathan\'s iPhone"][0][0],dicto["Nathan\'s iPhone"][0][1]],dicto["Nathan\'s iPhone"][1]
