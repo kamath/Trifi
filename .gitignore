@@ -1,3 +1,6 @@
+# temporary network xml files
+*.xml
+
 # Logs
 logs
 *.log

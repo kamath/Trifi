@@ -4,17 +4,13 @@ const _get = require('lodash/get');
 const { spawn } = require('child_process');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-const port = 3000;
+const port = process.env.SERVER_PORT || 3000;
 
 const app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '..', 'viewer')));
-
-app.get('/', (req, res) => {
-  res.send('Server is online.');
-});
 
 app.post('/api/data', (req, res) => {
   // Use lodash so no error is thrown if req.body is undefined

@@ -1,8 +1,8 @@
 const WiFiControl = require( 'wifi-control');
 const request = require('request');
 const _find = require('lodash/find');
-const serverUri = '10.251.68.88'//'localhost';//'10.251.82.83';
-const serverPort = 3000;
+const serverUri = '10.251.68.88';
+const serverPort = process.env.SERVER_PORT || 3000;
 const endpoint = `http://${serverUri}:${serverPort}`;
 
 WiFiControl.init({
