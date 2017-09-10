@@ -9,7 +9,9 @@ function routes(io) {
     //console.log(data);
     const python = spawn('python', [path.join(__dirname, 'regress.py')]);
     let output = '';
+    let pythonError = false;
     python.stderr.on('data', (data) => {
+      pythonError = true;
       console.error(`Error: ${data}`);
     });
     python.stdout.on('data', (data) => {
@@ -17,17 +19,21 @@ function routes(io) {
     });
     python.stdout.on('end', () => {
       res.end('Data received.');
-      try {
-        const processedData = processOutput(output);
-        io.sockets.emit('data', {
-          data: processedData,
-        });
-      } catch (err) {
-        console.error(
-          'Error: Data was not able to be processed. ' +
-          'Perhaps you don\'t have 3 phones connected?'
-        );
-        console.log(err);
+      if (!pythonError) {
+        try {
+          const processedData = processOutput(output);
+          io.sockets.emit('data', {
+            data: processedData,
+          });
+        } catch (err) {
+          console.error(
+            'Error: Data was not able to be processed. ' +
+            'Perhaps you don\'t have 3 phones connected?'
+          );
+          console.log(err);
+        }
+      } else {
+        console.log('An error occurred within Python');
       }
     });
     python.stdin.write(data);
