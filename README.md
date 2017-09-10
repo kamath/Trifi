@@ -11,3 +11,5 @@ Usage of the product is entirely up to the consumer, and the beauty of the produ
 
 ## How it works
 ![demo.png](demo.png)
+
+Given a beacon at position (X<sub>a</sub>, Y<sub>a</sub>), a user's distance from the router can be calculated through a transformed form of the Free Space Path Loss (FSPL) formula. 
