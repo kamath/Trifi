@@ -70,8 +70,9 @@ function routes(io) {
     // Digits after brackets hold radii - substring to remove leading bracket
     const digitsAfterBrackets =
       normalized
-        .match(/\]\d/g)
-        .map((m) => Number(m.substring(1)));
+        .match(/\].*?\[/g)
+        // substring -1 to remove first and last chars
+        .map((m) => Number(m.substring(1, m.length - 1)));
     // JSON parse to create native array
     const clientPosition = JSON.parse(bracketedGroups[0]);
     const beaconData = [];
