@@ -1,4 +1,4 @@
-![logo.png](logo.png)
+![logo.png](https://github.com/andykamath/Trifi/blob/master/logo.png)
 
 ## What?
 
@@ -9,15 +9,15 @@ Usage of the product is entirely up to the consumer, and the beauty of the produ
 **DISCLAIMER:** This product does not violate a consumer's right to privacy, as it ends tracking by the time the consumer leaves the predefined confines of the system.
 
 ## How it works
-![demo.png](demo.png)
+![demo.png](https://github.com/andykamath/Trifi/blob/master/demo.png)
 
 Given a beacon at position (<i>X<sub>a</sub>, Y<sub>a</sub></i>), a user's distance from the router can be calculated through a transformed form of the Free Space Path Loss (FSPL) formula. Through communicating with the wi-fi emitted from the beacon, a computer can calculate the signal strength in dBm and the frequency in MHz. When plugged into the following equation, where f is the frequency and s is the signal strength, a distance *d* in meters is returned.
 
-![math.png](distance.png)
+![math.png](https://github.com/andykamath/Trifi/blob/master/distance.png)
 
 While this was a great start, the problem persisted as to finding the user's specific location. The equation returns a distance between the user and the beacon, which forms a circle around the beacon of radius *d*. In order to track the precise location, we used a technique known as *trilateration* (very similar to *triangularation* in GPS's). When we use *n*=3 beacons, we can plot three different circles and thereby get a much more precise area as to where the user could be through optimization with least squares approximation. As can be seen with a simple graph below, the area of overlap between all three beacons can be used to generalize a location within a given confined area.
 
-![graph.png](graph.png) ![squares.gif](squares.gif)
+![graph.png](graph.png) ![squares.gif](https://github.com/andykamath/Trifi/blob/master/squares.gif)
 
 ## Computational Technicalities/Specifications
 A computer is used in the middle (can be as portable as an Raspberry Pi if plugged into a portable charger; we were lacking in resources so we used a laptop) to communicate with all three beacons. The computer recursively disconnects with a Wi-Fi connection, communicates with each beacon, calculates the location, then communicates with a GCP back-end via a RESTful API, mimicking multilateral U-TDOA technology that's used to geolocate cell phones. Mathematical models were originally drafted in Python, but were ported to a Node.js back-end for powerful and asynchronous network tools. 
