@@ -7,7 +7,7 @@ Our goal was to create a noninvasive location tracker through a confined space. 
 
 Usage of the product is entirely up to the consumer, and the beauty of the product is that it stops tracking a user's location beyond the confines of a store.
 
-**DISCLAIMER: **THIS DOES NOT VIOLATE A CONSUMER'S INDIVIDUAL PRIVACY
+**DISCLAIMER:** This product does not violate a consumer's right to privacy, as it ends tracking by the time the consumer leaves the predefined confines of the system.
 
 ## How it works
 ![demo.png](demo.png)
