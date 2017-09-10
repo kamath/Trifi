@@ -61,13 +61,17 @@ function routes(io) {
             .split(' ')
             // Remove all blank elements
             .filter(el => el !== '')
+            .map(Number)
         );
       }
       // Remove spaces for all groups other than first
       return group.replace(/ /g, '');
     });
     // Digits after brackets hold radii - substring to remove leading bracket
-    const digitsAfterBrackets = normalized.match(/\]\d/g).map((m) => m.substring(1));
+    const digitsAfterBrackets =
+      normalized
+        .match(/\]\d/g)
+        .map((m) => Number(m.substring(1)));
     // JSON parse to create native array
     const clientPosition = JSON.parse(bracketedGroups[0]);
     const beaconData = [];
