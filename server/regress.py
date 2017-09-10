@@ -29,9 +29,9 @@ def plot_radii(locs,dists,mx=5):
 def main():
     lines = get_data_from_nodejs()
     print lines
-    locs,sigs = [],[]
+    locs,sigs,names = [],[],[]
     for a in lines:
-        #print(a['ssid'],a['signal_level'])
+        names.append(a['ssid'])
         locs.append((float(a['location'][0]),float(a['location'][1])))
         sigs.append(float(a['signal_level'])+float(a['correction']))
     
@@ -44,9 +44,13 @@ def main():
     # in order of L1,L2,L3
     Ls = locs
     Ds = [dist(s) for s in sigs]
-    #print Ds
-    
-    plot_radii(Ls,Ds,mx=10)
+    dicto = {}
+    for i,name in enumerate(names):
+        dicto[name] = []
+        dicto[name].append(Ls[i])
+        dicto[name].append(Ds[i])
+        
+    #plot_radii(Ls,Ds,mx=10)
     
     def mse(x, locations, distances):
         """
@@ -80,7 +84,14 @@ def main():
             'maxiter': 1e7      # Maximum iterations
         })
     location = result.x
-    print(location) # stdout is [xpos,ypos] (meters)
+    """
+    stdout is: [xpos,ypos] (meters), "Saul": [locX, locY], radius, "H Wildermuth": loc, radius, "Nathan\'s iPhone": loc, radius
+    """
+    print location, [dicto["Saul"][0],dicto["Saul"][1]], dicto["Saul"],
+     [dicto["H Wildermuth"][0],dicto["H Wildermuth"][1]], dicto["H Wildermuth"], 
+     [dicto["Nathan\'s iPhone"][0],dicto["Nathan\'s iPhone"][1]], 
+     dicto["Nathan\'s iPhone"]
+    
 
 # Run main() when spawned directly from nodejs
 if __name__ == '__main__':
