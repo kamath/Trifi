@@ -408,13 +408,16 @@
 
 })(jQuery);
 
-var width = 400
+var width = 500
 var height = width
 
 function plotIt(arr) { // assumes input of [Px, Py, Ax, Ay, Ar, Bx, By, Br, Cx, Cy, Cr]
     var canvas = document.getElementById('canvas'); // get canvas element
     var ctx = canvas.getContext('2d'); // getContext
-
+    for (var i = 0; i < arr.length;i++) {
+	arr[i] = 100 * (+arr[i]);
+    }
+    
     ctx.clearRect(0,0,width,height);
     ctx.fillStyle = 'rgb(0,0,0)';
 
