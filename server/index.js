@@ -12,10 +12,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '..', 'viewer')));
 
-app.get('/', (req, res) => {
-  res.send('Server is online.');
-});
-
 app.post('/api/data', (req, res) => {
   // Use lodash so no error is thrown if req.body is undefined
   const data = JSON.stringify(_get(req, 'body.data', []));
