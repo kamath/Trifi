@@ -16,6 +16,6 @@ Given a beacon at position (<i>X<sub>a</sub>, Y<sub>a</sub></i>), a user's dista
 
 ![math.png](distance.png)
 
-While this was a great start, the problem persisted as to finding the user's specific location. The equation returns a distance between the user and the beacon, which forms a circle around the beacon of radius *d*. In order to track the precise location, we used a technique known as *trilateration* (very similar to *triangularation* in GPS's). When we use *n*=3 beacons, we can plot three different circles and thereby get a much more precise area as to where the user could be through optimization with least squares regression. As can be seen with a simple graph below, the area of overlap between all three beacons can be used to generalize a location within a given confined area.
+While this was a great start, the problem persisted as to finding the user's specific location. The equation returns a distance between the user and the beacon, which forms a circle around the beacon of radius *d*. In order to track the precise location, we used a technique known as *trilateration* (very similar to *triangularation* in GPS's). When we use *n*=3 beacons, we can plot three different circles and thereby get a much more precise area as to where the user could be through optimization with least squares approximation. As can be seen with a simple graph below, the area of overlap between all three beacons can be used to generalize a location within a given confined area.
 
-![graph.png](graph.png)
+![graph.png](graph.png) ![squares.gif](squares.gif)
