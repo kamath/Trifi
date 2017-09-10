@@ -12,7 +12,7 @@ WiFiControl.init({
 const beacons = [
   {
     ssid: 'Saul',
-    location: [0, 2.7],
+    location: [2.7, 0],
     data: [],
     correction: 0,
   },
@@ -24,7 +24,7 @@ const beacons = [
   },
   {
     ssid: 'H Wildermuth',
-    location: [2.7, 0],
+    location: [0, 2.7],
     data: [],
     correction: 2.5,
   },
