@@ -9,7 +9,9 @@ function routes(io) {
     //console.log(data);
     const python = spawn('python', [path.join(__dirname, 'regress.py')]);
     let output = '';
+    let pythonError = false;
     python.stderr.on('data', (data) => {
+      pythonError = true;
       console.error(`Error: ${data}`);
     });
     python.stdout.on('data', (data) => {
@@ -17,24 +19,40 @@ function routes(io) {
     });
     python.stdout.on('end', () => {
       res.end('Data received.');
-      const processedData = processOutput(result);
-      io.sockets.emit('data', {
-        data: processedData,
-      });
+      if (!pythonError) {
+        try {
+          const processedData = processOutput(output);
+          io.sockets.emit('data', {
+            data: processedData,
+          });
+        } catch (err) {
+          console.error(
+            'Error: Data was not able to be processed. ' +
+            'Perhaps you don\'t have 3 phones connected?'
+          );
+          console.log(err);
+        }
+      } else {
+        console.log('An error occurred within Python');
+      }
     });
     python.stdin.write(data);
     python.stdin.end();
   }
 
-  function processOutput(result) {
+  function processOutput(output) {
     /**
-     * stdout (i.e. result) is:
+     * stdout is:
      * [xpos,ypos] (meters), "Saul": [locX, locY], radius, "H Wildermuth": loc, radius, "Nathan\'s iPhone": loc, radius
      * mock data:
      * [2.1, 1.1] [0, 3] 5 [0, 0] 2 [3, 0] 7
      */
     // normalized is [2.1,1.1][0,3]5[0,0]2[3,0]7
-    const normalized = result.replace(/ /g, '');
+    const normalized = output.replace(/ /g, '');
+    console.log('Output:');
+    console.log(output);
+    console.log('Normalized:');
+    console.log(normalized);
     // Bracketed groups hold positions
     const bracketedGroups = normalized.match(/\[.*?\]/g);
     // Digits after brackets hold radii - substring to remove leading bracket
