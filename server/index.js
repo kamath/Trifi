@@ -4,33 +4,22 @@ const _get = require('lodash/get');
 const { spawn } = require('child_process');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-const port = process.env.SERVER_PORT || 3000;
 
 const app = express();
+
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+const port = process.env.SERVER_PORT || 3000;
+
+const routes = require('./routes')(io);
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '..', 'viewer')));
 
-app.post('/api/data', (req, res) => {
-  // Use lodash so no error is thrown if req.body is undefined
-  const data = JSON.stringify(_get(req, 'body.data', []));
-  //console.log(data);
-  const python = spawn('python', [path.join(__dirname, 'regress.py')]);
-  python.stderr.on('data', (data) => {
-    console.log(`stderr: ${data}`);
-  });
-  python.stdout.on('data', (data) => {
-    console.log('stdout: ' + data);
-  });
-  python.stdout.on('end', () => {
-    //console.log('ended');
-  });
-  python.stdin.write(data);
-  python.stdin.end();
-  res.end('Data received.');
-});
+app.post('/api/data', routes.pythonController);
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`App listening on port ${port}!`);
 });
