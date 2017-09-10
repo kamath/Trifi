@@ -55,7 +55,14 @@ function routes(io) {
     const bracketedGroups = output.match(/\[.*?\]/g).map((group, i) => {
       // First group is special, need to renormalize to normal array format
       if (i === 0) {
-        return JSON.stringify(group.replace(/\[\]/g, '').split(' ').join(','));
+        return JSON.stringify(
+          group
+            .replace(/\[\]/g, '')
+            .split(' ')
+            // Remove all blank elements
+            .filter(el => el !== '')
+            .join(',')
+        );
       }
       // Remove spaces for all groups other than first
       return group.replace(/ /g, '');
