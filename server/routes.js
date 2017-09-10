@@ -57,7 +57,7 @@ function routes(io) {
       if (i === 0) {
         return JSON.stringify(
           group
-            .replace(/\[\]/g, '')
+            .replace(/[\[\]]/g, '')
             .split(' ')
             // Remove all blank elements
             .filter(el => el !== '')
