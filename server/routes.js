@@ -23,7 +23,10 @@ function routes(io) {
           data: processedData,
         });
       } catch (err) {
-        console.error('Error: Data was not able to be processed.');
+        console.error(
+          'Error: Data was not able to be processed. ' +
+          'Perhaps you don\'t have 3 phones connected?'
+        );
       }
     });
     python.stdin.write(data);

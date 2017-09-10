@@ -6,7 +6,7 @@ const serverPort = process.env.SERVER_PORT || 3000;
 const endpoint = `http://${serverUri}:${serverPort}`;
 
 WiFiControl.init({
-  // debug: true,
+  debug: true,
 });
 
 const beacons = [
