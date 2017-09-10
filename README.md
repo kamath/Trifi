@@ -1,5 +1,7 @@
 # TriFi
-Trilateration of location via wifi hotspot signal strength analysis
+Trilateration of location via internet hotspot signal strength analysis
+
+![demo.png](demo.png)
 
 ## Client
 Client runs on a device which is attached to the person being tracked (i.e. Raspberry Pi). Signal strength data is sent every second to the server.
