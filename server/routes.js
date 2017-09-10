@@ -17,7 +17,7 @@ function routes(io) {
     });
     python.stdout.on('end', () => {
       res.end('Data received.');
-      const processedData = processOutput(result);
+      const processedData = processOutput(output);
       io.sockets.emit('data', {
         data: processedData,
       });
@@ -26,15 +26,15 @@ function routes(io) {
     python.stdin.end();
   }
 
-  function processOutput(result) {
+  function processOutput(output) {
     /**
-     * stdout (i.e. result) is:
+     * stdout is:
      * [xpos,ypos] (meters), "Saul": [locX, locY], radius, "H Wildermuth": loc, radius, "Nathan\'s iPhone": loc, radius
      * mock data:
      * [2.1, 1.1] [0, 3] 5 [0, 0] 2 [3, 0] 7
      */
     // normalized is [2.1,1.1][0,3]5[0,0]2[3,0]7
-    const normalized = result.replace(/ /g, '');
+    const normalized = output.replace(/ /g, '');
     // Bracketed groups hold positions
     const bracketedGroups = normalized.match(/\[.*?\]/g);
     // Digits after brackets hold radii - substring to remove leading bracket
