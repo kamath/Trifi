@@ -1,5 +1,4 @@
-# TriFi
-Trilateration of location via internet hotspot signal strength analysis
+![logo.png](logo.png)
 
 ## What?
 
