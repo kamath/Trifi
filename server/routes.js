@@ -1,3 +1,6 @@
+const _get = require('lodash/get');
+const { spawn } = require('child_process');
+
 function routes(io) {
   function pythonController(req, res) {
     // Use lodash so no error is thrown if req.body is undefined
