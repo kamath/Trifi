@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
 app.post('/api/data', (req, res) => {
   // Use lodash so no error is thrown if req.body is undefined
   const data = JSON.stringify(_get(req, 'body.data', []));
+  //console.log(data);
   const python = spawn('python', [path.join(__dirname, 'regress.py')]);
   python.stderr.on('data', (data) => {
     console.log(`stderr: ${data}`);
@@ -26,7 +27,7 @@ app.post('/api/data', (req, res) => {
     console.log('stdout: ' + data);
   });
   python.stdout.on('end', () => {
-    console.log('ended');
+    //console.log('ended');
   });
   python.stdin.write(data);
   python.stdin.end();

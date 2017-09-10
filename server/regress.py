@@ -6,28 +6,27 @@ from scipy.optimize import minimize
 def get_data_from_nodejs():
     lines = sys.stdin.readlines()
     # Only 1 line of input
+    #print 'Look at me'
+    #print lines
     return json.loads(lines[0])
 
 def main():
     lines = get_data_from_nodejs()
-    print(lines)
-
-    # hardcoded beacon positions X,Y (meters)
-    L1 = [0,3]
-    L2 = [3,0]
-    L3 = [0,0]
-
+    
+    locs,sigs = [],[]
+    for a in lines:
+        locs.append((float(a['location'][0]),float(a['location'][1])))
+        sigs.append(float(a['signal_level']))
+    
     #Free Space Path Loss formula for distance
     def dist(sig, freq=2412):
         return 10**((27.55-(20*np.log10(freq)) - sig)/40.0)
 
-    Ls = [L1,L2,L3]
+    
     # every timestamp put new values in dist() calls
     # in order of L1,L2,L3
-    Ds = [dist(-57),dist(-60),dist(-53.5)]
-    #print(Ls)
-    #print(Ds)
-
+    Ls = locs
+    Ds = [dist(s) for s in sigs]
 
     def mse(x, locations, distances):
         """
@@ -46,7 +45,8 @@ def main():
     # distances: [ distance1,     ... ]
 
     #initial guess to start minmization = average of beacon positions
-    initial_location = [np.mean([L1[0],L2[0],L3[0]]),np.mean([L1[1],L2[1],L3[1]])]
+    initial_location = [np.mean([locs[0][0],locs[1][0],locs[2][0]]),
+                        np.mean([locs[0][1],locs[1][1],locs[2][1]])]
     locations = Ls
     distances = Ds
 
