@@ -25,6 +25,7 @@ function routes(io) {
           io.sockets.emit('data', {
             data: processedData,
           });
+          console.log('Data was processed and sent to client.');
         } catch (err) {
           console.error(
             'Error: Data was not able to be processed. ' +
