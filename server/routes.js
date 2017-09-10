@@ -17,10 +17,14 @@ function routes(io) {
     });
     python.stdout.on('end', () => {
       res.end('Data received.');
-      const processedData = processOutput(output);
-      io.sockets.emit('data', {
-        data: processedData,
-      });
+      try {
+        const processedData = processOutput(output);
+        io.sockets.emit('data', {
+          data: processedData,
+        });
+      } catch (err) {
+        console.error('Error: Data was not able to be processed.');
+      }
     });
     python.stdin.write(data);
     python.stdin.end();
