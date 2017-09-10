@@ -1,7 +1,7 @@
 const WiFiControl = require( 'wifi-control');
 const request = require('request');
 const _find = require('lodash/find');
-const serverUri = '10.251.82.83';
+const serverUri = 'localhost';//'10.251.82.83';
 const serverPort = 3000;
 const endpoint = `http://${serverUri}:${serverPort}`;
 
@@ -12,15 +12,18 @@ WiFiControl.init({
 const beacons = [
   {
     name: 'Saul',
-    location: [0, 0],
+    location: [0, 2.7],
+    correction: 0,
   },
   {
     name: 'Nathan\'s iPhone',
     location: [0, 3],
+    correction: 1,
   },
   {
     name: 'H Wildermuth',
-    location: [3, 0],
+    location: [2.7, 0],
+    correction: 2.5
   },
 ];
 
