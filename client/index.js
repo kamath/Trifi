@@ -81,7 +81,7 @@ function prepareDataForServer(networks) {
           correction: beacon.correction,
         };
       });
-  // console.log(`Found networks: ${foundWhitelistedNetworks}`);
+  console.log(`Found networks: ${foundWhitelistedNetworks}`);
   sendDataToServer(pretty);
 }
 
