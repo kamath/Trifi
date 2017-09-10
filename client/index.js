@@ -2,7 +2,7 @@ const WiFiControl = require( 'wifi-control');
 const request = require('request');
 const _find = require('lodash/find');
 const serverUri = '35.190.181.97';
-const serverPort = process.env.SERVER_PORT || 3000;
+const serverPort = 80// process.env.SERVER_PORT || 3000;
 const endpoint = `http://${serverUri}:${serverPort}`;
 
 WiFiControl.init({
@@ -97,7 +97,7 @@ function sendDataToServer(data) {
       }
       return console.error(err);
     }
-    // return console.log('Response from server: ' + body);
+    return console.log('Response from server: ' + body);
   });
 
   setTimeout(searchForWifi, 1000);

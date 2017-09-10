@@ -14,17 +14,22 @@ socket.on('data', function ({ data }) {
    */
    console.log(data);
 
+   showIt([
+     data.clientPosition[0],
+     data.clientPosition[1],
+   ]);
+
     plotIt([
-      data.clientPosition[0],
-      data.clientPosition[1],
-      data.beaconData[0].position[0],
-      data.beaconData[0].position[1],
-      data.beaconData[0].radius,
-      data.beaconData[1].position[0],
-      data.beaconData[1].position[1],
-      data.beaconData[1].radius,
-      data.beaconData[2].position[0],
-      data.beaconData[2].position[1],
-      data.beaconData[0].radius,
+      data.clientPosition[0] / 2,
+      data.clientPosition[1] / 2,
+      data.beaconData[0].position[0] / 2,
+      data.beaconData[0].position[1] / 2,
+      data.beaconData[0].radius * 2,
+      data.beaconData[1].position[0] / 2,
+      data.beaconData[1].position[1] / 2,
+      data.beaconData[1].radius * 2,
+      data.beaconData[2].position[0] / 2,
+      data.beaconData[2].position[1] / 2,
+      data.beaconData[0].radius * 2,
     ]);
 });

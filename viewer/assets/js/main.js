@@ -447,3 +447,7 @@ function plotIt(arr) { // assumes input of [Px, Py, Ax, Ay, Ar, Bx, By, Br, Cx, 
 		ctx.arc(arr[0],arr[1],15,0,2*Math.PI,0); // draw point
 		ctx.fill(); // fill point
 }
+
+function showIt(coords) {
+	$('#coordinates').html(`(${coords[0]},${coords[1]})`);
+}
