@@ -417,31 +417,33 @@ function plotIt(arr) { // assumes input of [Px, Py, Ax, Ay, Ar, Bx, By, Br, Cx, 
     for (var i = 0; i < arr.length;i++) {
 	arr[i] = 100 * (+arr[i]);
     }
-    
+
     ctx.clearRect(0,0,width,height);
     ctx.fillStyle = 'rgb(0,0,0)';
 
     ctx.strokeRect(width/5, height/5, Math.max(arr[2],arr[5],arr[8]), Math.max(arr[3],arr[6],arr[9])); // draw 3x3 square
 
-    ctx.beginPath();
-    ctx.arc(arr[0],arr[1],15,0,2*Math.PI,0); // draw point
-    ctx.fill(); // fill point
-    
+
     ctx.fillStyle = 'rgb(200, 0, 0)'; // set color
     ctx.fillRect((width/5)+arr[2]-25,(height/5)+arr[3]-25,50,50);
     ctx.beginPath();
     ctx.arc((width/5)+arr[2],(height/5)+arr[3],arr[4],0,2*Math.PI,0);
     ctx.stroke();
-    
+
     ctx.fillStyle = 'rgb(0, 200, 0)'; // set color
     ctx.fillRect((width/5)+arr[5]-25,(height/5)+arr[6]-25,50,50);
     ctx.beginPath();
     ctx.arc((width/5)+arr[5],(height/5)+arr[6],arr[7],0,2*Math.PI,0);
     ctx.stroke();
-    
+
     ctx.fillStyle = 'rgb(0, 0, 200)'; // set color
     ctx.fillRect((width/5)+arr[8]-25,(height/5)+arr[9]-25,50,50);
     ctx.beginPath();
     ctx.arc((width/5)+arr[8],(height/5)+arr[9],arr[10],0,2*Math.PI,0);
     ctx.stroke();
+
+		ctx.fillStyle = 'rgb(0,0,0)';
+		ctx.beginPath();
+		ctx.arc(arr[0],arr[1],15,0,2*Math.PI,0); // draw point
+		ctx.fill(); // fill point
 }
