@@ -27,6 +27,7 @@ function routes(io) {
           'Error: Data was not able to be processed. ' +
           'Perhaps you don\'t have 3 phones connected?'
         );
+        console.log(err);
       }
     });
     python.stdin.write(data);
